@@ -7,7 +7,12 @@ import './App.scss';
 const App = () => {
   return (
     <div className="App">
-      <PhotoListItem/>
+      <PhotoListItem 
+      key={sampleDataForPhotoListItem.id}
+      location={sampleDataForPhotoListItem.location}
+      imageSource={sampleDataForPhotoListItem.imageSource}
+      username={sampleDataForPhotoListItem.username}
+      profile={sampleDataForPhotoListItem.profile} />
     </div>
   );
 };
