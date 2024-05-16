@@ -14,7 +14,7 @@ const sampleDataForPhotoListItem = {
   profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
 };  
 
-const photos = new Array(3).fill(...sampleDataForPhotoListItem);
+const photos = new Array(3).fill(sampleDataForPhotoListItem);
 // Note: Rendering a single component to build components in isolation
 const App = () => {
 
