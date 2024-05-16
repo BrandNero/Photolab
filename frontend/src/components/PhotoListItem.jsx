@@ -1,12 +1,13 @@
 import React from "react";
 
 import "../styles/PhotoListItem.scss";
-
+import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({photo}) => {
   return (
     <article className="photo-list__item">
       <header>
+      <PhotoFavButton />
       <img src={photo.imageSource} alt={`${photo.username}'s photo`} className="photo-list__image" />
       </header>
       <section className="photo-list__user-details">
