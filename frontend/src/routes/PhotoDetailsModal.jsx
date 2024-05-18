@@ -24,7 +24,7 @@ const PhotoDetailsModal = (props) => {
        favourites={favourites}
        toggleFavourites={toggleFavourites}
        />
-        <img src={photo.urls.regular} alt={photo.title} className="photo-details-modal__image" />
+        <img src={photo.urls.full} alt={photo.title} className="photo-details-modal__image" />
         <div className="photo-details-modal__photographer-details">
           <img
             src={photo.user.profile}
