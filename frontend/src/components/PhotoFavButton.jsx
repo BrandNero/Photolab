@@ -4,10 +4,10 @@ import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
-  const { photoId, favourites, toggleFavourite } = props
+  const { photoId, favourites, toggleFavourites } = props
 
   const handleClick = () => {
-    toggleFavourite(photoId)
+    toggleFavourites(photoId)
   }
   return (
     <div className="photo-list__fav-icon">

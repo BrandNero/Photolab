@@ -14,7 +14,7 @@ const handleClick = () => {
       <PhotoFavButton 
        photoId={photo.id}
        favourites={favourites}
-       toggleFavourite={toggleFavourites}
+       toggleFavourites={toggleFavourites}
        />
       <img src={photo.urls.regular} alt={`${photo.user.username}'s photo`} className="photo-list__image" onClick={handleClick}/>
       </header>

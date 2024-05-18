@@ -2,18 +2,28 @@ import React from 'react';
 
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
+import PhotoFavButton from 'components/PhotoFavButton';
+import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { isModalOpen, onClose, photo } = props
+  const { isModalOpen, onClose, photo, toggleFavourites, favourites, openModal } = props
   if (!isModalOpen || !photo) {
     return null;
   }
+  console.log(Object.values(photo.similar_photos))
   return (
     <div className="photo-details-modal">
-      <button className="photo-details-modal__close-button" onClick={onClose}>
-        <img src={closeSymbol} alt="close symbol" />
-      </button>
+      <div className="photo-details-modal__top-bar">
+        <button className="photo-details-modal__close-button" onClick={onClose}>
+          <img src={closeSymbol} alt="close symbol" />
+        </button>
+      </div>
       <div className="photo-details-modal__images">
+      <PhotoFavButton 
+       photoId={photo.id}
+       favourites={favourites}
+       toggleFavourites={toggleFavourites}
+       />
         <img src={photo.urls.regular} alt={photo.title} className="photo-details-modal__image" />
         <div className="photo-details-modal__photographer-details">
           <img
@@ -28,6 +38,15 @@ const PhotoDetailsModal = (props) => {
             </p>
           </div>
         </div>
+      </div>
+      <h2 className="photo-details-modal__header">Similar Photos</h2>
+      <div className="photo-details-modal__similar-photos">
+        <PhotoList 
+          photos={Object.values(photo.similar_photos)}
+          favourites={favourites}
+          toggleFavourites={toggleFavourites}
+          openModal={openModal}
+        />
       </div>
     </div>
   )

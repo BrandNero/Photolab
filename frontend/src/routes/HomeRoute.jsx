@@ -5,17 +5,21 @@ import PhotoList from 'components/PhotoList';
 import TopNavigationBar from 'components/TopNavigationBar';
 
 const HomeRoute = (props) => {
-  const { photos, topics, openModal} = props;
-  const [favourites, setFavourites] = useState([]);
-  const toggleFavourites = (photoId) => {
-    setFavourites((prev) =>
-      prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]);
-  };
+  const { photos, topics, openModal, toggleFavourites, favourites} = props;
+
 
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics} favourites={favourites} />
-      <PhotoList photos={photos} favourites={favourites} toggleFavourites={toggleFavourites} openModal={openModal} />
+      <TopNavigationBar 
+        topics={topics} 
+        favourites={favourites} 
+      />
+      <PhotoList
+        photos={photos}
+        favourites={favourites}
+        toggleFavourites={toggleFavourites}
+        openModal={openModal}
+      />
     </div>
   );
 };
