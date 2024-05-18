@@ -4,7 +4,10 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = (props) => {
-const {photo, favourites, toggleFavourites} = props
+const {photo, favourites, toggleFavourites, openModal} = props
+const handleClick = () => {
+  openModal(photo)
+}
   return (
     <article className="photo-list__item">
       <header>
@@ -13,7 +16,7 @@ const {photo, favourites, toggleFavourites} = props
        favourites={favourites}
        toggleFavourite={toggleFavourites}
        />
-      <img src={photo.urls.regular} alt={`${photo.user.username}'s photo`} className="photo-list__image" />
+      <img src={photo.urls.regular} alt={`${photo.user.username}'s photo`} className="photo-list__image" onClick={handleClick}/>
       </header>
       <section className="photo-list__user-details">
         <img src={photo.user.profile} alt={`${photo.user.username}'s profile`} className="photo-list__user-profile" />

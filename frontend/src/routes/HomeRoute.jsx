@@ -5,7 +5,7 @@ import PhotoList from 'components/PhotoList';
 import TopNavigationBar from 'components/TopNavigationBar';
 
 const HomeRoute = (props) => {
-  const { photos, topics } = props;
+  const { photos, topics, openModal} = props;
   const [favourites, setFavourites] = useState([]);
   const toggleFavourites = (photoId) => {
     setFavourites((prev) =>
@@ -14,8 +14,8 @@ const HomeRoute = (props) => {
 
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics} favourites={favourites}/>
-      <PhotoList photos={photos} favourites={favourites} toggleFavourites={toggleFavourites}/>
+      <TopNavigationBar topics={topics} favourites={favourites} />
+      <PhotoList photos={photos} favourites={favourites} toggleFavourites={toggleFavourites} openModal={openModal} />
     </div>
   );
 };
