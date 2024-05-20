@@ -10,7 +10,6 @@ const PhotoDetailsModal = (props) => {
   if (!isModalOpen || !photo) {
     return null;
   }
-  console.log(Object.values(photo.similar_photos))
   return (
     <div className="photo-details-modal">
       <div className="photo-details-modal__top-bar">
@@ -51,5 +50,6 @@ const PhotoDetailsModal = (props) => {
     </div>
   )
 };
+
 
 export default PhotoDetailsModal;

@@ -9,7 +9,6 @@ const PhotoList = (props) => {
   return (
     <ul className="photo-list">
       {Array.isArray(photos) && photos.map(photo => {
-        console.log(photo); // Log a photo
         return (
           <PhotoListItem 
             key={photo.id} 
