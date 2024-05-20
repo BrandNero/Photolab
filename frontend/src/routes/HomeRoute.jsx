@@ -7,7 +7,6 @@ import TopNavigationBar from 'components/TopNavigationBar';
 const HomeRoute = (props) => {
   const { photos, topics, openModal, toggleFavourites, favourites} = props;
 
-
   return (
     <div className="home-route">
       <TopNavigationBar 
