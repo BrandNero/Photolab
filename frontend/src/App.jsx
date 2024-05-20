@@ -16,7 +16,6 @@ const App = () => {
          photoData,
          topicData,
         } = useApplicationData();
-        // console.log(photoData)
     return (
       <div className="App">
         <HomeRoute

@@ -96,7 +96,6 @@ const useApplicationData = () => {
       fetch(`/api/photos?topic=${state.topic}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           dispatch({
             type: ActionTypes.SET_PHOTOS_BY_TOPIC,
             topic: state.topic,
