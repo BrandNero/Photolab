@@ -13,12 +13,19 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+
     case ActionTypes.SET_PHOTOS:
       return { ...state, photoData: action.photos };
+
     case ActionTypes.SET_TOPICS:
       return { ...state, topicData: action.topics };
+
+    case ActionTypes.SET_PHOTOS_BY_TOPIC:
+        return { ...state, photoData: { ...state.photoData, [action.topic]: action.photos } };
+    
     case ActionTypes.SET_ERROR:
       return { ...state, error: action.error };
+
     case ActionTypes.TOGGLE_FAVOURITE:
       const photoExists = state.photoData.some(photo => photo.id === action.photoId);
       if (!photoExists) {
@@ -62,6 +69,16 @@ const useApplicationData = () => {
         console.error('Failed to fetch topics:', error); // Log the error
         dispatch({ type: ActionTypes.SET_ERROR, error: 'Failed to fetch topics' });
       });
+
+      fetch(`/api/photos?topic=${state.topic}`)
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: ActionTypes.SET_PHOTOS_BY_TOPIC, topic: state.topic, photos: data });
+    })
+    .catch(error => {
+      console.error(`Failed to fetch photos for topic ${state.topic}:`, error);
+      dispatch({ type: ActionTypes.SET_ERROR, error: `Failed to fetch photos for topic ${topic}` });
+    });
   }, []);
 
   const toggleFavourites = (photoId) => {
