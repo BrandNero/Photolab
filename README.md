@@ -22,3 +22,9 @@ Read `backend/readme` for further setup details.
 cd backend
 npm start
 ```
+## ScreenShots
+Main Page
+https://github.com/BrandNero/Photolab/blob/main/image/PhotoLab1.png?raw=true
+
+Modal Mode
+https://github.com/BrandNero/Photolab/blob/main/image/PhotoLab2.png?raw=true
