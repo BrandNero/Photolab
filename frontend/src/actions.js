@@ -5,4 +5,5 @@ export const ActionTypes = {
   SET_PHOTOS: 'SET_PHOTOS',
   SET_TOPICS: 'SET_TOPICS',
   SET_ERROR: 'SET_ERROR',
+  SET_PHOTOS_BY_TOPIC: 'SET_PHOTOS_BY_TOPIC',
 };

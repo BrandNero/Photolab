@@ -5,7 +5,6 @@ import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
   const {photos, favourites, toggleFavourites, openModal} = props;
-
   return (
     <ul className="photo-list">
       {Array.isArray(photos) && photos.map(photo => {

@@ -18,11 +18,14 @@ const reducer = (state, action) => {
     case ActionTypes.SET_TOPICS:
       return { ...state, topicData: action.topics };
 
-    case ActionTypes.SET_PHOTOS_BY_TOPIC:
-      return {
-        ...state,
-        photoData: { ...state.photoData, [action.topic]: action.photos },
-      };
+      case ActionTypes.SET_PHOTOS_BY_TOPIC:
+        const updatedPhotoData = state.photoData.filter(
+          (photo) => photo.topic !== action.topic
+        );
+        return {
+          ...state,
+          photoData: [...action.photos],
+        };
 
     case ActionTypes.SET_ERROR:
       return { ...state, error: action.error };
@@ -66,21 +69,35 @@ const useApplicationData = () => {
 
   useEffect(() => {
     fetch("/api/photos")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch({ type: ActionTypes.SET_PHOTOS, photos: data });
-      })
-      .catch((error) => {
-        dispatch({
-          type: ActionTypes.SET_ERROR,
-          error: "Failed to fetch photos",
-        });
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    // Remove duplicates
+    const ids = new Set();
+    const uniquePhotos = data.filter(photo => {
+      if (!ids.has(photo.id)) {
+        ids.add(photo.id);
+        return true;
+      }
+      return false;
+    });
 
+    dispatch({ type: ActionTypes.SET_PHOTOS, photos: uniquePhotos });
+  })
+  .catch((error) => {
+    dispatch({
+      type: ActionTypes.SET_ERROR,
+      error: "Failed to fetch photos",
+    });
+  });
+  
     fetch("/api/topics")
       .then((response) => response.json())
       .then((data) => {
-        dispatch({ type: ActionTypes.SET_TOPICS, topics: data });
+        // Remove duplicates
+        const uniqueTopics = Array.from(new Set(data.map(topic => topic.id)))
+          .map(id => data.find(topic => topic.id === id));
+  
+        dispatch({ type: ActionTypes.SET_TOPICS, topics: uniqueTopics });
       })
       .catch((error) => {
         console.error("Failed to fetch topics:", error); // Log the error
@@ -91,27 +108,39 @@ const useApplicationData = () => {
       });
   }, []);
 
+  const fetchPhotosByTopic = (topic) => {
+    fetch(`/api/topics/photos/${topic.id}`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+        // Remove duplicates
+        const uniquePhotos = [];
+        const ids = new Set();
+  
+        data.forEach(photo => {
+          if (!ids.has(photo.id)) {
+            ids.add(photo.id);
+            uniquePhotos.push(photo);
+          }
+        });
+  
+        dispatch({
+          type: ActionTypes.SET_PHOTOS_BY_TOPIC,
+          topic: topic,
+          photos: uniquePhotos,
+        });
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch photos for topic ${topic}:`, error);
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          error: `Failed to fetch photos for topic ${topic}`,
+        });
+      });
+  };
   useEffect(() => {
     if (state.topic) {
-      fetch(`/api/photos?topic=${state.topic}`)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch({
-            type: ActionTypes.SET_PHOTOS_BY_TOPIC,
-            topic: state.topic,
-            photos: data,
-          });
-        })
-        .catch((error) => {
-          console.error(
-            `Failed to fetch photos for topic ${state.topic}:`,
-            error
-          );
-          dispatch({
-            type: ActionTypes.SET_ERROR,
-            error: `Failed to fetch photos for topic ${state.topic}`,
-          });
-        });
+      fetchPhotosByTopic(state.topic);
     }
   }, [state.topic]);
 
@@ -131,6 +160,7 @@ const useApplicationData = () => {
     openModal,
     closeModal,
     toggleFavourites,
+    fetchPhotosByTopic
   };
 };
 

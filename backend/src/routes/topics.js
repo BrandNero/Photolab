@@ -70,6 +70,7 @@ module.exports = db => {
       JOIN user_account ON user_account.id = photo.user_id
       WHERE topic.id = ${request.params.id}
     `).then(({ rows }) => {
+      console.log(rows[0].topic_photo_data);
       response.json(rows[0].topic_photo_data);
     });
   });
