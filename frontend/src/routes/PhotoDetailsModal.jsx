@@ -43,12 +43,12 @@ const PhotoDetailsModal = (props) => {
       </div>
       <h2 className="photo-details-modal__header">Similar Photos</h2>
       <div className="photo-details-modal__similar-photos">
-        <PhotoList
-          photos={Object.values(photo.similar_photos)}
-          favourites={favourites}
-          toggleFavourites={toggleFavourites}
-          openModal={openModal}
-        />
+      <PhotoList
+        photos={photo.similar_photos ? Object.values(photo.similar_photos) : []}
+        favourites={favourites}
+        toggleFavourites={toggleFavourites}
+        openModal={openModal}
+      />
       </div>
     </div>
   );
