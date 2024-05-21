@@ -6,10 +6,13 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { isModalOpen, onClose, photo, toggleFavourites, favourites, openModal } = props
+  const { isModalOpen, onClose, photo, toggleFavourites, favourites, openModal } = props;
   if (!isModalOpen || !photo) {
     return null;
   }
+
+  const isFavourite = favourites.includes(photo.id);
+
   return (
     <div className="photo-details-modal">
       <div className="photo-details-modal__top-bar">
@@ -18,11 +21,11 @@ const PhotoDetailsModal = (props) => {
         </button>
       </div>
       <div className="photo-details-modal__images">
-      <PhotoFavButton 
-       photoId={photo.id}
-       favourites={favourites}
-       toggleFavourites={toggleFavourites}
-       />
+        <PhotoFavButton
+          photoId={photo.id}
+          favourites={isFavourite}
+          toggleFavourites={toggleFavourites}
+        />
         <img src={photo.urls.full} alt={photo.title} className="photo-details-modal__image" />
         <div className="photo-details-modal__photographer-details">
           <img
@@ -40,7 +43,7 @@ const PhotoDetailsModal = (props) => {
       </div>
       <h2 className="photo-details-modal__header">Similar Photos</h2>
       <div className="photo-details-modal__similar-photos">
-        <PhotoList 
+        <PhotoList
           photos={Object.values(photo.similar_photos)}
           favourites={favourites}
           toggleFavourites={toggleFavourites}
@@ -48,7 +51,7 @@ const PhotoDetailsModal = (props) => {
         />
       </div>
     </div>
-  )
+  );
 };
 
 
