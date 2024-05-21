@@ -4,6 +4,7 @@ import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'hooks/useApplicationData';
+import DarkMode from 'components/DarkMode'
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
           favourites={favourites}
           openModal={openModal}
           />
+          <DarkMode />
       </div>
     );
 };
